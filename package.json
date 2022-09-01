@@ -23,6 +23,7 @@
     "chart.js": "^3.9.1",
     "currency-formatter": "^1.5.9",
     "jquery": "^3.6.1",
+    "json-server": "^0.17.0",
     "moment": "^2.29.4",
     "ngx-toastr": "^15.0.0",
     "primeicons": "^5.0.0",
