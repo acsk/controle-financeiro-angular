@@ -48,9 +48,20 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeng/resources/themes/nova/theme.css",
+              "node_modules/primeicons/primeicons.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/chart.js/dist/chart.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              
+              
+            ]
           },
           "configurations": {
             "production": {
