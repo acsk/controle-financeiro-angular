@@ -1,0 +1,41 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Moradia",
+      "description": "Pagamento de contas de casa"
+    },
+    {
+      "id": 2,
+      "name": "Saúde",
+      "description": "Remédios, plano de saúde, exames médicos"
+    },
+    {
+      "id": 3,
+      "name": "Lazer",
+      "description": "Cinema, lanchonete, passeio, parque, viagens etc"
+    },
+    {
+      "id": 4,
+      "name": "Salário",
+      "description": "Receitas provenientes de CLP"
+    },
+    {
+      "id": 5,
+      "name": "Freelas",
+      "description": "Receitas provenientes de CLP"
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "name": "Caixa",
+      "description": "Conta dos Freelas, PIX"
+    },
+    {
+      "id": 2,
+      "name": "Bradesco",
+      "description": "Recebimentos de Boletos"
+    }
+  ]
+}

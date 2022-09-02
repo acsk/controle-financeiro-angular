@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from '../shared/Category.model';
+import { Category } from '../shared/category.model';
 import { CategoryService } from '../shared/category.service';
 
 @Component({
@@ -15,8 +15,7 @@ export class CategoryListComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getAll().subscribe(
-      categories => this.categories = categories
-      
+      categories => this.categories = categories      
     )
   }
 
