@@ -16,14 +16,14 @@
       "description": "Cinema, lanchonete, passeio, parque, viagens etc"
     },
     {
-      "id": 4,
-      "name": "Salário",
-      "description": "Receitas provenientes de CLP"
+      "id": 5,
+      "name": "Freelas PJ",
+      "description": "Receitas provenientes"
     },
     {
-      "id": 5,
-      "name": "Freelas",
-      "description": "Receitas provenientes de CLP"
+      "id": 6,
+      "name": "Capgemini",
+      "description": "Salário CLT"
     }
   ],
   "accounts": [
@@ -37,5 +37,42 @@
       "name": "Bradesco",
       "description": "Recebimentos de Boletos"
     }
+  ],
+  "entries": [
+    {
+      "id": 1,
+      "name": "Teste",
+      "description": "Conta dos Freelas, PIX",
+      "type": "expense",
+       "amount" : "70,80",
+       "date":"30/01/2022",
+       "paid": true,
+       "categoryId": 1,
+       "category": 1
+    },
+    {
+      "id": 2,
+      "name": "Teste 2 ",
+      "description": "Conta dos Freelas, PIX",
+      "type": "expense",
+       "amount" : "55,80",
+       "date":"30/01/2022",
+       "paid": false,
+       "categoryId": 2,
+       "category": 1
+    },
+    {
+      "id": 3,
+      "name": "Teste 2 ",
+      "description": "Conta dos Freelas, PIX",
+      "type": "revenue",
+       "amount" : "150,68",
+       "date":"28/02/2022",
+       "paid": true,
+       "categoryId": 2,
+       "category": 1
+    }
+    
   ]
+  
 }
