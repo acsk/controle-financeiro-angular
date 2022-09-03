@@ -2,14 +2,14 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
         <li class="breadcrumb-item "><a routerLink="/categories">Categorias</a></li>
-        <li class="breadcrumb-item active">Formulário de Categoria</li>
+        <li class="breadcrumb-item active">{{pageTitle}}</li>
     </ol>
 </nav>
 
 <div class="row">
 
     <div class="col-md">
-        <h1 class="h2 border-left pl-2">Formulário de Categoria {{currentAction}}</h1>
+        <h1 class="h2 border-left pl-2">{{pageTitle}}</h1>
     </div>
 
     <div class="col-md">
@@ -17,7 +17,8 @@
     </div>
 
 </div>
-<form  formGroupName='categoryForm' >
+<form novalidate (submit)="submitForm()" [formGroup]="categoryForm">
+
     <div class="card">
         <div class="card-header">
             Informações sobre a categoria
@@ -26,17 +27,28 @@
             <div class="form-row">
                 <div class="form-group mb-3 col-md-4 ">
                     <label for="Nome">Nome</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="name">
+                    <span class="text-danger"
+                        *ngIf="categoryForm.get('name')?.errors && (categoryForm.get('name')?.dirty || categoryForm.get('name')?.touched) ">
+                        Preencha o campo nome</span>
                 </div>
                 <div class="form-group mb-3 col-md-8">
                     <label for="Descrição">Descrição</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="description">
                 </div>
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary float-right mt-2">Salvar</button>
+            <button type="submit" [disabled]="categoryForm.invalid" class="btn btn-primary float-right mt-2">Salvar</button>
         </div>
     </div>
-    
+
 </form>
+
+<div class="alert alert-danger mt-2" *ngIf="serverErrorMessages">
+    <strong>Erro no servidor</strong>
+    <ul>
+        <li *ngFor="let erro of serverErrorMessages">{{erro}}</li>
+    </ul>
+    
+</div>

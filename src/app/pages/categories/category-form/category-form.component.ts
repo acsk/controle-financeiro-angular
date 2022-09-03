@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +7,9 @@ import { switchMap } from 'rxjs';
 import { Category } from '../shared/category.model';
 
 import { CategoryService } from '../shared/category.service';
+
+
+
 
 
 @Component({
@@ -17,11 +20,13 @@ import { CategoryService } from '../shared/category.service';
 export class CategoryFormComponent implements OnInit {
 
   currentAction?: string
-  categoryForm?: FormGroup
-  pageTitle?: string
-  sereverErrorMessages: string[] = []
-  submitForm: boolean = false
+  categoryForm!: FormGroup
+
+  pageTitle: string | undefined
+  serverErrorMessages?: string[] 
+  submitingForm: boolean = false
   category: Category = new Category()
+
 
   constructor
     (
@@ -29,24 +34,75 @@ export class CategoryFormComponent implements OnInit {
       private route: ActivatedRoute,
       private formBuilder: FormBuilder,
       private router: Router,
-      private toastr: ToastrService
+      private toastr: ToastrService     
 
     ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    
     this.setCurrentAction()
     this.buildCategoryForm()
     this.loadCategory()
+
   }
-  ngAfterContentChecked() {
-   this.setPageTitle()
+
+  ngAfterContentChecked(): void {
+
+    this.setPageTitle()
+
   }
-  setPageTitle() {
-    if(this.currentAction == 'new'){
-      this.pageTitle == 'Cadastro de nova categoria'
+
+  submitForm() {
+    if (this.categoryForm.valid) {
+      this.submitingForm = true
+      if (this.currentAction == 'edit') {
+        this.updateCategory()
+      } else {
+        this.createCategory()
+      }
+    }
+
+  }
+  private updateCategory() {
+    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+    this.categoryService.update(category).subscribe(
+      category => this.actionsForSuccess(category),
+      error => this.actionForErrors(error)
+    )
+  }
+
+  private createCategory() {
+
+    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+    this.categoryService.create(category).subscribe(
+      category => this.actionsForSuccess(category),
+      error => this.actionForErrors(error)
+    )
+  }
+
+  private actionForErrors(error:any) {
+    this.toastr.error('Algum erro ocorreu!')
+    this.submitingForm = false
+    
+    if(error.status == 422){
+      this.serverErrorMessages  = JSON.parse(error._body).errors
     }else{
-      const categoryName  = this.category.name || ''
-      this.pageTitle == 'Editando a categoria' + categoryName
+      this.serverErrorMessages  = ['Falha da comunicação com o servidor']
+    }
+  }
+  private actionsForSuccess(category: Category) {
+    this.toastr.success('Requisição atualizada com sucesso')
+    return this.router.navigateByUrl('categories', { skipLocationChange: true }).then(
+      () => this.router.navigate(['categories', category.id, 'edit'])
+    )
+  }
+
+  private setPageTitle() {
+    if (this.currentAction == 'new') {
+      this.pageTitle = 'Cadastro de nova categoria'
+    } else {
+      const categoryName = this.category.name || ''
+      this.pageTitle = 'Editando a categoria ' + categoryName
     }
   }
 
@@ -63,17 +119,19 @@ export class CategoryFormComponent implements OnInit {
     } else {
       this.currentAction = 'edit'
     }
+    console.log("setCurrentAction", this.currentAction)
   }
   loadCategory() {
     if (this.currentAction == 'edit') {
       this.route.paramMap.pipe(
         switchMap(params => this.categoryService.getById(Number(params.get('id'))))
-       )
-       .subscribe((category) => {
-         this.category = category;
-         this.categoryForm?.patchValue(category)
-        },(error) => this.toastr.warning('Ocorreu um erro na requisição da categoria')
+      )
+        .subscribe((category) => {
+          this.category = category;
+          this.categoryForm?.patchValue(category)
+        }, (error) => this.toastr.warning('Ocorreu um erro na requisição da categoria')
         )
     }
   }
+  
 }
