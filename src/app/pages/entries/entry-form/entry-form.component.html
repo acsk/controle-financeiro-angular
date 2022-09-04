@@ -1,0 +1,119 @@
+<nav class="mb-5">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item "><a routerLink="/entries">Lançamentos</a></li>
+        <li class="breadcrumb-item active">{{pageTitle}}</li>
+    </ol>
+</nav>
+
+<div class="row">
+
+    <div class="col-md-9">
+        <h1 class="h2 border-left pl-2">{{pageTitle}}</h1>
+    </div>
+
+    <div class="col-md-3">
+        <a routerLink="/entries" class="btn btn-light float-right"> <i class="fa-solid fa-arrow-left"></i> Voltar</a>
+    </div>
+
+</div>
+<form novalidate (submit)="submitForm()" [formGroup]="entryForm">
+
+    <div class="card">
+        <div class="card-header">
+            Informações sobre a lançamento
+        </div>
+        <div class="card-body">
+
+            <div class="form-row">
+                <div class="form-group mb-3 col-md-2 ">
+                    <label for="Tipo">Tipo</label>
+                    <select name="type" id="type" class="form-control" formControlName="type">
+                        <option *ngFor="let option of typesOptions" value="{{option.value}}">{{option.text}}</option>                        
+                    </select>
+                    <span class="text-danger"
+                        *ngIf="entryForm.get('type')?.errors && (entryForm.get('type')?.dirty || entryForm.get('type')?.touched) ">
+                        Preencha o campo nome</span>
+                </div>
+
+                <div class="form-group mb-3 col-md-5 ">
+                    <label for="Tipo">Lançamento</label>
+                    <input type="text" class="form-control" formControlName="name">
+                    <span class="text-danger"
+                        *ngIf="entryForm.get('name')?.errors && (entryForm.get('name')?.dirty || entryForm.get('name')?.touched) ">
+                        Preencha o campo nome</span>
+                </div>
+                <div class="form-group mb-3 col-md-3 ">
+                    <label for="amount">Valor</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                R$
+                            </div>
+                        </div>
+                        <input [imask]="imaskConfig" type="text" class="form-control text-right"
+                            formControlName="amount">
+                    </div>
+                    <span class="text-danger"
+                        *ngIf="entryForm.get('amount')?.errors && (entryForm.get('amount')?.dirty || entryForm.get('amount')?.touched) ">
+                        Preencha o campo valor</span>
+                </div>
+                <div class="form-group mb-3 col-md-2 ">
+                    <label for="date">Data</label>
+
+                    <p-calendar id="date" formControlName="date" inputStyleClass="form-control" dataType="string"
+                        dateFormat="dd/mm/yy"></p-calendar>
+
+                    <span class="text-danger"
+                        *ngIf="entryForm.get('date')?.errors && (entryForm.get('date')?.dirty || entryForm.get('date')?.touched) ">
+                        Preencha o campo Data</span>
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group col-md-2">
+                    <label for="Paid">Pago</label>
+                    <div class="btn-group" role="group" aria-label="Button group">
+                        <label (click)="entryForm.get('paid')?.setValue(true)" class="btn btn-outline-info" [class.active]="entryForm.get('paid')?.value == true" >Pago</label>
+                        <label (click)="entryForm.get('paid')?.setValue(false)" class="btn btn-outline-info" [class.active]="entryForm.get('paid')?.value == false" >Pend.</label>
+                        
+                    </div>
+                </div>
+                <div class="form-group mb-3 col-md-2 ">
+                    <label for="Tipo">Cateria</label>
+                    <select name="categoryId" id="categoryId" class="form-control" formControlName="categoryId">
+                        <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                        
+                    </select>
+                    <span class="text-danger"
+                        *ngIf="entryForm.get('categoryId')?.errors && (entryForm.get('categoryId')?.dirty || entryForm.get('categoryId')?.touched) ">
+                        Preencha o campo nome</span>
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="Descrição">Descrição</label>
+                    <input type="text" class="form-control" formControlName="description">
+                </div>
+            </div>
+
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" [disabled]="entryForm.invalid"
+                class="btn btn-primary float-right mt-2">Salvar</button>
+        </div>
+    </div>
+
+</form>
+
+<div class="alert alert-danger mt-2" *ngIf="serverErrorMessages">
+    <strong>Erro no servidor</strong>
+    <ul>
+        <li *ngFor="let erro of serverErrorMessages">{{erro}}</li>
+    </ul>
+
+</div>
+
+{{entryForm.value | json}}
