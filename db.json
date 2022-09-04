@@ -41,38 +41,33 @@
   "entries": [
     {
       "id": 1,
-      "name": "Teste",
-      "description": "Conta dos Freelas, PIX",
-      "type": "expense",
-       "amount" : "70,80",
-       "date":"30/01/2022",
-       "paid": true,
-       "categoryId": 1,
-       "category": 1
+      "name": "Teste Pendente",
+      "description": "Conta dos Freelas, PIX II",
+      "type": "revenue",
+      "amount": "2500,00",
+      "date": "03/01/2022",
+      "paid": true,
+      "categoryId": 1
     },
     {
       "id": 2,
-      "name": "Teste 2 ",
-      "description": "Conta dos Freelas, PIX",
+      "name": "Moradia ",
+      "description": "Gas de cozinha",
       "type": "expense",
-       "amount" : "55,80",
-       "date":"30/01/2022",
-       "paid": false,
-       "categoryId": 2,
-       "category": 1
+      "amount": "45,00",
+      "date": "30/01/2022",
+      "paid": false,
+      "categoryId": 2
     },
     {
       "id": 3,
-      "name": "Teste 2 ",
-      "description": "Conta dos Freelas, PIX",
+      "name": "Salário ",
+      "description": "CLT",
       "type": "revenue",
-       "amount" : "150,68",
-       "date":"28/02/2022",
-       "paid": true,
-       "categoryId": 2,
-       "category": 1
+      "amount": "250,58",
+      "date": "30/01/2022",
+      "paid": false,
+      "categoryId": 2
     }
-    
   ]
-  
 }

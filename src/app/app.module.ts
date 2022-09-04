@@ -13,13 +13,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent
   ],
-  imports: [
-  
+  imports: [  
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,   
     ToastrModule.forRoot(), // ToastrModule added
+
   ],
   providers: [],
   bootstrap: [AppComponent]
