@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError,  map, Observable, throwError } from 'rxjs';
+import { catchError,  flatMap,  map, Observable, throwError } from 'rxjs';
 import { Entry } from '../shared/entry.model';
+import { CategoryService } from '../../categories/shared/category.service';
 
 
 @Injectable({
@@ -12,6 +13,7 @@ export class EntryService {
   private apiPath: string = "http://localhost:3000/entries"
   constructor(
     private http: HttpClient,
+    private categorySercice: CategoryService
     
   ) { }
 
@@ -32,17 +34,33 @@ export class EntryService {
     
   }
   create(entry: Entry): Observable<Entry>{
-    return this.http.post(this.apiPath, entry).pipe(
-      catchError(this.handleError),
-      map(this.jsonDataEntry)
+    
+  return  this.categorySercice.getById(Number(entry.categoryId)).pipe(
+      flatMap(category => {
+        entry.category = category
+        return this.http.post(this.apiPath, entry).pipe(
+          catchError(this.handleError),
+          map(this.jsonDataEntry)
+        )
+      })
     )
+    
+  
   }
   update(entry: Entry): Observable<Entry>{
     const url = `${this.apiPath}/${entry.id}`
-    return this.http.put(url, entry).pipe(
-      catchError(this.handleError),
-      map(()=> entry)
+    
+    return  this.categorySercice.getById(Number(entry.categoryId)).pipe(
+      flatMap(category => {
+        entry.category = category
+        return this.http.put(url, entry).pipe(
+          catchError(this.handleError),
+          map(()=> entry)
+        )
+      })
     )
+       
+    
   }
   delete(id: Number): Observable<any>{
     const url = `${this.apiPath}/${id}`
@@ -73,3 +91,7 @@ export class EntryService {
     return throwError(error);
       }
 }
+function flapMap(arg0: (category: any) => Observable<Entry>): import("rxjs").OperatorFunction<import("../../categories/shared/category.model").Category, Entry> {
+  throw new Error('Function not implemented.');
+}
+

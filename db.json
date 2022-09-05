@@ -24,6 +24,11 @@
       "id": 6,
       "name": "Capgemini",
       "description": "Salário CLT"
+    },
+    {
+      "id": 7,
+      "name": "Alimentação",
+      "description": "Supermercado, FasFood etc"
     }
   ],
   "accounts": [
@@ -47,7 +52,12 @@
       "amount": "2500,00",
       "date": "03/01/2022",
       "paid": true,
-      "categoryId": 1
+      "categoryId": 1,
+      "category": {
+        "id": 1,
+        "name": "Moradia",
+        "description": "Aluguel, Zeladoria etc."
+      }
     },
     {
       "id": 2,
@@ -57,7 +67,12 @@
       "amount": "45,00",
       "date": "30/01/2022",
       "paid": false,
-      "categoryId": 2
+      "categoryId": 2,
+      "category": {
+        "id": 2,
+        "name": "Saúde",
+        "description": "Remédios, plano de saúde, exames médicos"
+      }
     },
     {
       "id": 3,
@@ -67,7 +82,42 @@
       "amount": "250,58",
       "date": "30/01/2022",
       "paid": false,
-      "categoryId": 2
+      "categoryId": 2,
+      "category": {
+        "id": 2,
+        "name": "Saúde",
+        "description": "Remédios, plano de saúde, exames médicos"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Supermercado",
+      "description": "Compras da feira do mês",
+      "type": "expense",
+      "amount": "500,00",
+      "date": "04/09/2022",
+      "paid": true,
+      "categoryId": "7",
+      "category": {
+        "id": 7,
+        "name": "Alimentação",
+        "description": "Supermercado, FasFood etc"
+      }
+    },
+    {
+      "id": 5,
+      "name": "dsfdsfsdsdf",
+      "description": "sfsdfsd",
+      "type": "expense",
+      "amount": "6000,00",
+      "date": "04/09/2022",
+      "paid": true,
+      "categoryId": "6",
+      "category": {
+        "id": 6,
+        "name": "Capgemini",
+        "description": "Salário CLT"
+      }
     }
   ]
 }
