@@ -13,14 +13,14 @@ export class CategoryService {
   private apiPath: string = "http://localhost:3000/categories"
   constructor(
     private http: HttpClient,
-    
+
 
   ) { }
 
   getAll(): Observable<Category[]> {
     return this.http.get<Category>(this.apiPath).pipe(
       catchError(this.handleError),
-      map(this.jsonDataCategories),            
+      map(this.jsonDataCategories),
     )
   }
 
@@ -32,7 +32,7 @@ export class CategoryService {
       catchError(this.handleError),
       map(this.jsonDataCategory)
     )
-    
+
   }
   create(category: Category): Observable<Category>{
     return this.http.post(this.apiPath, category).pipe(
@@ -63,14 +63,14 @@ export class CategoryService {
     return categories
   }
   jsonDataCategory(jsonData: any): Category {
-    
+
     return jsonData as Category
   }
 
   handleError(error: any): Observable<any>{
     console.log('ERRO NA REQUISIÇÃO => '+ error)
     return throwError(error);
-    
+
   }
 
 
